@@ -1,0 +1,36 @@
+{% extends 'myapp/index.html' %}
+
+{% block title %}Profile{% endblock title %}
+
+{% block first %}
+
+<div class="container">
+
+    <div class="row mt-5">
+        <div class="col-sm-3">
+            <h5>Welcome  {{user}}</h5>
+            {% for message in messages %}
+                {{message}}
+            {% endfor %}<br><br>
+            <a href="{% url 'passchange' %}">Change Password</a><br>
+            <a href="{% url 'setpass' %}">Set Password</a><br><br><br><br>
+            <a href="{% url 'logout' %}" class="btn btn-secondary" role="button">Logout</a>
+        </div>
+        <div class="col-sm-6"><h1 class="text-center alert alert-dark">User Profile</h1>
+            <form action="" method="POST">
+                {% csrf_token %}
+                {% if form.non_field_errors %}
+                {% for error in form.non_field_errors %}
+                    {{error}}
+                {% endfor %}
+                {% endif %}
+                {% for fm in form %}
+                {{fm.label_tag}}{{fm}}{{fm.errors}}<br><br>
+                {% endfor %}
+                <input type="submit" value="update">
+            </form><br><br>
+        </div>
+        <div class="col-sm-3"></div>
+    </div>
+</div>
+{% endblock first %}
